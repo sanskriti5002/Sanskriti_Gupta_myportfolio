@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Code2, Palette, Zap, Coffee } from "lucide-react";
+import { GraduationCap, Trophy, Code2, Users } from "lucide-react";
+import profileImage from "@/assets/sanskriti-profile.jpg";
 
 const highlights = [
-  { icon: Code2, label: "Clean Code", value: "5+ Years" },
-  { icon: Palette, label: "UI/UX Focus", value: "Design First" },
-  { icon: Zap, label: "Performance", value: "Optimized" },
-  { icon: Coffee, label: "Dedication", value: "24/7 Passion" },
+  { icon: GraduationCap, label: "CGPA", value: "9.46" },
+  { icon: Code2, label: "Languages", value: "C, Java, Python, C++" },
+  { icon: Trophy, label: "Hackathons", value: "5+ Participated" },
+  { icon: Users, label: "Leadership", value: "GDG & ADC Club" },
 ];
 
 const AboutSection = () => {
@@ -38,14 +39,17 @@ const AboutSection = () => {
               className="relative"
             >
               <div className="aspect-square rounded-2xl border-gradient overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-8xl font-bold text-gradient opacity-20">YN</span>
-                </div>
-                {/* Replace with your actual image */}
+                <img 
+                  src={profileImage} 
+                  alt="Sanskriti Gupta" 
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute bottom-6 left-6 right-6 p-4 bg-card/80 backdrop-blur-sm rounded-xl border border-border">
                   <p className="text-sm text-muted-foreground font-mono">
-                    Based in Your City, Country
+                    📍 Greater Noida, Uttar Pradesh
+                  </p>
+                  <p className="text-foreground font-semibold mt-1">
+                    BTech CSE • IILM University (2023-2027)
                   </p>
                 </div>
               </div>
@@ -59,20 +63,20 @@ const AboutSection = () => {
               className="space-y-6"
             >
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I'm a full-stack developer with a passion for creating beautiful, functional, 
-                and user-centered digital experiences. With 5+ years of experience in the field, 
-                I specialize in building modern web applications using cutting-edge technologies.
+                I'm a passionate Computer Science student at IILM University, Greater Noida, 
+                currently pursuing my BTech with a strong CGPA of 9.46. I'm enthusiastic about 
+                software development, AI, and innovative tech solutions.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                My journey in tech started when I wrote my first line of code at 15. Since then, 
-                I've worked with startups and established companies, helping them bring their 
-                digital visions to life. I believe in writing clean, maintainable code and 
-                creating interfaces that users love.
+                With hands-on experience in AI & Machine Learning from my internship at AICTE 
+                in collaboration with Edunet Foundation, I've developed ML models achieving 85% 
+                accuracy. I'm certified in C++ from IIT Bombay, Java & JDBC from Infosys, and 
+                Database Management from Udemy.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                When I'm not coding, you'll find me exploring new technologies, contributing 
-                to open-source projects, or enjoying a good cup of coffee while planning my 
-                next side project.
+                I'm an active member of Google Developer Group (GDG), ADC Club, and serve as 
+                General Secretary of Campus Lens Club at IILM University. When I'm not coding, 
+                you'll find me dancing, volunteering at tech events, or competing in hackathons!
               </p>
 
               <div className="grid grid-cols-2 gap-4 pt-6">

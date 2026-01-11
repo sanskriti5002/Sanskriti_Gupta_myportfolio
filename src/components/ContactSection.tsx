@@ -1,21 +1,29 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Mail, MapPin, Send, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Github, Linkedin, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: "your.email@example.com", href: "mailto:your.email@example.com" },
-  { icon: MapPin, label: "Location", value: "Your City, Country", href: "#" },
+  { icon: Mail, label: "Email", value: "sanskritiguptamrpr1234@gmail.com", href: "mailto:sanskritiguptamrpr1234@gmail.com" },
+  { icon: Phone, label: "Phone", value: "+91 9450563457", href: "tel:+919450563457" },
+  { icon: MapPin, label: "Location", value: "Greater Noida, Uttar Pradesh", href: "#" },
 ];
 
 const socials = [
-  { icon: Github, href: "#", label: "GitHub" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Twitter, href: "#", label: "Twitter" },
+  { icon: Github, href: "https://github.com/sanskriti5002", label: "GitHub" },
+  { icon: Linkedin, href: "https://linkedin.com/in/sanskriti-gupta-341540286", label: "LinkedIn" },
+  { icon: Code, href: "https://leetcode.com/u/sanskriti5008", label: "LeetCode" },
+];
+
+const extracurricular = [
+  "General Secretary, Campus Lens Club, IILM University",
+  "Member, Google Developer Group (GDG) Club",
+  "Core Team Member, ADC Club, IILM University",
+  "Volunteer: Hacko'clock, Ignite 2K24 & 2K25, Mosaic 2K23 & 2K25",
 ];
 
 const ContactSection = () => {
@@ -56,7 +64,7 @@ const ContactSection = () => {
               Get In <span className="text-gradient">Touch</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Have a project in mind or just want to say hi? Feel free to reach out!
+              Looking for internship opportunities! Feel free to reach out for collaborations or just to say hi
             </p>
           </motion.div>
 
@@ -69,11 +77,11 @@ const ContactSection = () => {
               className="space-y-8"
             >
               <div>
-                <h3 className="text-2xl font-bold mb-6">Let's work together</h3>
+                <h3 className="text-2xl font-bold mb-6">Let's Connect!</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  I'm currently available for freelance work and full-time positions. 
-                  If you have a project that you want to get started, think you need 
-                  my help with something, or just want to chat, feel free to reach out!
+                  I'm currently seeking internship opportunities where I can apply my programming, 
+                  problem-solving, and database skills. I'm passionate about software development, 
+                  AI, and creating innovative tech solutions.
                 </p>
               </div>
 
@@ -109,6 +117,8 @@ const ContactSection = () => {
                     <motion.a
                       key={social.label}
                       href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                       className="p-3 rounded-xl border border-border bg-card text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors"
@@ -118,6 +128,24 @@ const ContactSection = () => {
                     </motion.a>
                   ))}
                 </div>
+              </motion.div>
+
+              {/* Extracurricular */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.6 }}
+                className="p-6 rounded-xl border border-border bg-card/50"
+              >
+                <h4 className="font-bold mb-4 text-primary">Extracurricular Activities</h4>
+                <ul className="space-y-2">
+                  {extracurricular.map((activity) => (
+                    <li key={activity} className="text-sm text-muted-foreground flex items-start gap-2">
+                      <span className="text-primary">▸</span>
+                      {activity}
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             </motion.div>
 
@@ -165,7 +193,7 @@ const ContactSection = () => {
                     id="message"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Tell me about your project..."
+                    placeholder="Tell me about your opportunity or project..."
                     rows={5}
                     required
                     className="bg-secondary/50 border-border focus:border-primary resize-none"

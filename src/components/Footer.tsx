@@ -14,7 +14,7 @@ const Footer = () => {
         >
           <p className="text-muted-foreground text-sm flex items-center gap-2">
             Built with <Heart className="w-4 h-4 text-destructive fill-destructive" /> by{" "}
-            <span className="text-foreground font-medium">Your Name</span>
+            <span className="text-foreground font-medium">Sanskriti Gupta</span>
           </p>
           
           <p className="text-muted-foreground text-sm font-mono">
