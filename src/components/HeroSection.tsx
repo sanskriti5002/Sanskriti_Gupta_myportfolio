@@ -80,7 +80,7 @@ const HeroSection = () => {
                   { icon: Github, href: "https://github.com/sanskriti5002", label: "GitHub" },
                   { icon: Linkedin, href: "https://linkedin.com/in/sanskriti-gupta-341540286", label: "LinkedIn" },
                   { icon: Code, href: "https://leetcode.com/u/sanskriti5008", label: "LeetCode" },
-                  { icon: Mail, href: "mailto:sanskritiguptamrpr1234@gmail.com", label: "Email" },
+                  { icon: Mail, href: "mailto:sanskritig233@gmail.com", label: "Email" },
                 ].map((social) => (
                   <motion.a
                     key={social.label}

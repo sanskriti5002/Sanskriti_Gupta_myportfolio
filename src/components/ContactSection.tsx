@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: "sanskritiguptamrpr1234@gmail.com", href: "mailto:sanskritiguptamrpr1234@gmail.com" },
+  { icon: Mail, label: "Email", value: "sanskritig233@gmail.com", href: "mailto:sanskritig233@gmail.com" },
   { icon: Phone, label: "Phone", value: "+91 9450563457", href: "tel:+919450563457" },
   { icon: MapPin, label: "Location", value: "Greater Noida, Uttar Pradesh", href: "#" },
 ];

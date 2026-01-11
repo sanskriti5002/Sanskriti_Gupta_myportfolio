@@ -6,7 +6,7 @@ import profileImage from "@/assets/sanskriti-profile.jpg";
 
 const highlights = [
   { icon: GraduationCap, label: "CGPA", value: "9.46" },
-  { icon: Code2, label: "Languages", value: "C, Java, Python, C++" },
+  { icon: Code2, label: "Languages", value: "Python, Java, C++, C" },
   { icon: Trophy, label: "Hackathons", value: "5+ Participated" },
   { icon: Users, label: "Leadership", value: "GDG & ADC Club" },
 ];
