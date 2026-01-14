@@ -12,6 +12,10 @@ import iitbLecture from "@/assets/iitb-lecture.png";
 import iitbCoding from "@/assets/iitb-coding.png";
 import iitbPresentation from "@/assets/iitb-presentation.png";
 
+// AICTE Internship images
+import aicteCertificate from "@/assets/aicte-certificate.jpg";
+import ibmAiBadge from "@/assets/ibm-ai-badge.png";
+
 const iitbImages = [
   { src: iitbAward, alt: "Receiving certificate at IIT Bombay" },
   { src: iitbCertificate, alt: "IIT Bombay Certificate of Completion" },
@@ -20,6 +24,11 @@ const iitbImages = [
   { src: iitbLecture, alt: "Bootcamp Lecture Session" },
   { src: iitbPresentation, alt: "C++ Programming Bootcamp Presentation" },
   { src: iitbCoding, alt: "Coding Session" },
+];
+
+const aicteImages = [
+  { src: aicteCertificate, alt: "AICTE AI/ML Internship Certificate" },
+  { src: ibmAiBadge, alt: "IBM SkillsBuild AI Fundamentals Badge" },
 ];
 
 const projects = [
@@ -31,6 +40,7 @@ const projects = [
     achievement: "PaceCoder at IIT Bombay Hackathon",
     featured: true,
     hasGallery: true,
+    galleryType: "iitb",
   },
   {
     title: "Employee Salary Prediction Model",
@@ -39,7 +49,8 @@ const projects = [
     github: "https://github.com/sanskriti5002",
     achievement: "AICTE Internship Project",
     featured: true,
-    hasGallery: false,
+    hasGallery: true,
+    galleryType: "aicte",
   },
   {
     title: "Mood Tracker with Voice Recognition",
@@ -48,6 +59,7 @@ const projects = [
     github: "https://github.com/sanskriti5002",
     featured: true,
     hasGallery: false,
+    galleryType: null,
   },
 ];
 
@@ -137,76 +149,86 @@ const FeaturedProject = ({
   index: number; 
   isInView: boolean;
   onOpenGallery?: () => void;
-}) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    animate={isInView ? { opacity: 1, y: 0 } : {}}
-    transition={{ duration: 0.6, delay: index * 0.2 }}
-    className="p-6 rounded-2xl border border-border bg-card hover:border-primary/50 transition-all group"
-  >
-    <div className="flex items-center justify-between mb-4">
-      <Folder className="w-12 h-12 text-primary" />
-      <a 
-        href={project.github} 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <Github size={20} />
-      </a>
-    </div>
-    <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{project.title}</h3>
-    <p className="text-muted-foreground mb-4">{project.description}</p>
-    
-    {project.achievement && (
-      <div className="flex items-center gap-2 mb-4 text-primary text-sm">
-        <Trophy size={16} />
-        <span>{project.achievement}</span>
-      </div>
-    )}
-
-    {project.hasGallery && (
-      <div className="mb-4">
-        <div className="grid grid-cols-4 gap-2">
-          {iitbImages.slice(0, 4).map((img, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ scale: 1.05 }}
-              onClick={onOpenGallery}
-              className="aspect-square rounded-lg overflow-hidden cursor-pointer border border-border hover:border-primary/50 transition-colors"
-            >
-              <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
-            </motion.div>
-          ))}
-        </div>
-        <button
-          onClick={onOpenGallery}
-          className="mt-2 text-sm text-primary hover:underline"
+}) => {
+  const galleryImages = project.galleryType === "iitb" ? iitbImages : project.galleryType === "aicte" ? aicteImages : [];
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: index * 0.2 }}
+      className="p-6 rounded-2xl border border-border bg-card hover:border-primary/50 transition-all group"
+    >
+      <div className="flex items-center justify-between mb-4">
+        <Folder className="w-12 h-12 text-primary" />
+        <a 
+          href={project.github} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-muted-foreground hover:text-foreground transition-colors"
         >
-          View all {iitbImages.length} photos →
-        </button>
+          <Github size={20} />
+        </a>
       </div>
-    )}
+      <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{project.title}</h3>
+      <p className="text-muted-foreground mb-4">{project.description}</p>
+      
+      {project.achievement && (
+        <div className="flex items-center gap-2 mb-4 text-primary text-sm">
+          <Trophy size={16} />
+          <span>{project.achievement}</span>
+        </div>
+      )}
 
-    <div className="flex flex-wrap gap-2">
-      {project.tech.map((tech) => (
-        <span key={tech} className="px-3 py-1 text-sm font-mono text-primary bg-primary/10 rounded-full">
-          {tech}
-        </span>
-      ))}
-    </div>
-  </motion.div>
-);
+      {project.hasGallery && galleryImages.length > 0 && (
+        <div className="mb-4">
+          <div className={`grid ${galleryImages.length <= 2 ? 'grid-cols-2' : 'grid-cols-4'} gap-2`}>
+            {galleryImages.slice(0, 4).map((img, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ scale: 1.05 }}
+                onClick={onOpenGallery}
+                className="aspect-square rounded-lg overflow-hidden cursor-pointer border border-border hover:border-primary/50 transition-colors"
+              >
+                <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+              </motion.div>
+            ))}
+          </div>
+          <button
+            onClick={onOpenGallery}
+            className="mt-2 text-sm text-primary hover:underline"
+          >
+            View all {galleryImages.length} photos →
+          </button>
+        </div>
+      )}
+
+      <div className="flex flex-wrap gap-2">
+        {project.tech.map((tech) => (
+          <span key={tech} className="px-3 py-1 text-sm font-mono text-primary bg-primary/10 rounded-full">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </motion.div>
+  );
+};
 
 const ProjectsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [showGallery, setShowGallery] = useState(false);
+  const [activeGallery, setActiveGallery] = useState<"iitb" | "aicte" | null>(null);
+
+  const getGalleryImages = () => {
+    if (activeGallery === "iitb") return iitbImages;
+    if (activeGallery === "aicte") return aicteImages;
+    return [];
+  };
 
   return (
     <>
-      {showGallery && (
-        <ImageGallery images={iitbImages} onClose={() => setShowGallery(false)} />
+      {activeGallery && (
+        <ImageGallery images={getGalleryImages()} onClose={() => setActiveGallery(null)} />
       )}
       
       <section id="projects" className="py-24 relative">
@@ -235,7 +257,7 @@ const ProjectsSection = () => {
                   project={project} 
                   index={index} 
                   isInView={isInView}
-                  onOpenGallery={project.hasGallery ? () => setShowGallery(true) : undefined}
+                  onOpenGallery={project.hasGallery && project.galleryType ? () => setActiveGallery(project.galleryType as "iitb" | "aicte") : undefined}
                 />
               ))}
             </div>
