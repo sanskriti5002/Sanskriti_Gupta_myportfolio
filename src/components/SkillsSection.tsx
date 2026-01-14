@@ -35,10 +35,17 @@ const skillCategories = [
 
 const certifications = [
   "C++ Bootcamp - IIT Bombay",
-  "Java & JDBC - Infosys",
-  "Database Management - Udemy",
+  "AWS Academy Graduate - Machine Learning Foundations (Amazon Web Services)",
+  "Artificial Intelligence Fundamentals - IBM SkillsBuild",
+  "Python Course Completion - TuteDude",
+  "Machine Learning using Python - Infosys Springboard (Pragati Initiative)",
+  "Java Database Connectivity (JDBC) - Infosys",
+  "Database Management System (DBMS) & SQL - Udemy",
+  "Introduction to Java - DataFlair",
   "Programming in C - Infosys",
   "Python Fundamentals - Infosys",
+  "Python Certification - DataFlair",
+  "Artificial Intelligence & Machine Learning Training - Infosys",
 ];
 
 const SkillBar = ({ skill, index, isInView }: { skill: { name: string; level: number }; index: number; isInView: boolean }) => (
