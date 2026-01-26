@@ -1,7 +1,22 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { Award, BookOpen, Languages } from "lucide-react";
+import { useRef, useState } from "react";
+import { Award, Languages, X } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+
+// Import certificate images
+import iitbCppCert from "@/assets/iitb-cpp-bootcamp-cert.png";
+import awsMlCert from "@/assets/aws-ml-foundations-cert.jpg";
+import ibmAiCert from "@/assets/ibm-ai-fundamentals-cert.jpg";
+import tutedudePythonCert from "@/assets/tutedude-python-cert.png";
+import infosysMlPythonCert from "@/assets/infosys-ml-python-cert.png";
+import infosysJdbcCert from "@/assets/infosys-jdbc-cert.png";
+import udemyDbmsCert from "@/assets/udemy-dbms-sql-cert.png";
+import dataflairJavaCert from "@/assets/dataflair-java-cert.png";
+import infosysCCert from "@/assets/infosys-c-cert.png";
+import infosysPythonFundCert from "@/assets/infosys-python-fundamentals-cert.png";
+import dataflairPythonCert from "@/assets/dataflair-python-cert.png";
+import infosysAimlCert from "@/assets/infosys-aiml-training-cert.png";
 
 const skillCategories = [
   {
@@ -34,18 +49,18 @@ const skillCategories = [
 ];
 
 const certifications = [
-  "C++ Bootcamp - IIT Bombay",
-  "AWS Academy Graduate - Machine Learning Foundations (Amazon Web Services)",
-  "Artificial Intelligence Fundamentals - IBM SkillsBuild",
-  "Python Course Completion - TuteDude",
-  "Machine Learning using Python - Infosys Springboard (Pragati Initiative)",
-  "Java Database Connectivity (JDBC) - Infosys",
-  "Database Management System (DBMS) & SQL - Udemy",
-  "Introduction to Java - DataFlair",
-  "Programming in C - Infosys",
-  "Python Fundamentals - Infosys",
-  "Python Certification - DataFlair",
-  "Artificial Intelligence & Machine Learning Training - Infosys",
+  { name: "C++ Bootcamp - IIT Bombay", image: iitbCppCert },
+  { name: "AWS Academy Graduate - Machine Learning Foundations", image: awsMlCert },
+  { name: "Artificial Intelligence Fundamentals - IBM SkillsBuild", image: ibmAiCert },
+  { name: "Python Course Completion - TuteDude", image: tutedudePythonCert },
+  { name: "Machine Learning using Python - Infosys Springboard", image: infosysMlPythonCert },
+  { name: "Java Database Connectivity (JDBC) - Infosys", image: infosysJdbcCert },
+  { name: "Database Management System (DBMS) & SQL - Udemy", image: udemyDbmsCert },
+  { name: "Introduction to Java - DataFlair", image: dataflairJavaCert },
+  { name: "Programming in C - Infosys", image: infosysCCert },
+  { name: "Python Fundamentals - Infosys", image: infosysPythonFundCert },
+  { name: "Python Certification - DataFlair", image: dataflairPythonCert },
+  { name: "AI & Machine Learning Training - Infosys", image: infosysAimlCert },
 ];
 
 const SkillBar = ({ skill, index, isInView }: { skill: { name: string; level: number }; index: number; isInView: boolean }) => (
@@ -75,6 +90,7 @@ const SkillBar = ({ skill, index, isInView }: { skill: { name: string; level: nu
 const SkillsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [selectedCert, setSelectedCert] = useState<{ name: string; image: string } | null>(null);
 
   return (
     <section id="skills" className="py-24 relative">
@@ -127,19 +143,21 @@ const SkillsSection = () => {
             <div className="flex items-center gap-3 mb-6">
               <Award className="w-6 h-6 text-primary" />
               <h3 className="text-2xl font-bold">Certifications</h3>
+              <span className="text-muted-foreground text-sm">(Click to view)</span>
             </div>
             <div className="flex flex-wrap gap-3">
               {certifications.map((cert, index) => (
-                <motion.span
-                  key={cert}
+                <motion.button
+                  key={cert.name}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.3, delay: 0.7 + index * 0.05 }}
                   whileHover={{ scale: 1.05, backgroundColor: "hsl(var(--primary) / 0.2)" }}
-                  className="px-4 py-2 rounded-full border border-border bg-secondary/50 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-default"
+                  onClick={() => setSelectedCert(cert)}
+                  className="px-4 py-2 rounded-full border border-border bg-secondary/50 text-sm text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all cursor-pointer"
                 >
-                  {cert}
-                </motion.span>
+                  {cert.name}
+                </motion.button>
               ))}
             </div>
           </motion.div>
@@ -160,6 +178,30 @@ const SkillsSection = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Certificate Modal */}
+      <Dialog open={!!selectedCert} onOpenChange={() => setSelectedCert(null)}>
+        <DialogContent className="max-w-4xl w-[95vw] p-0 overflow-hidden bg-card border-border">
+          <div className="relative">
+            <button
+              onClick={() => setSelectedCert(null)}
+              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-background/80 hover:bg-background transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            {selectedCert && (
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-4 pr-10">{selectedCert.name}</h3>
+                <img
+                  src={selectedCert.image}
+                  alt={selectedCert.name}
+                  className="w-full h-auto rounded-lg"
+                />
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
