@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { Award, Languages } from "lucide-react";
+import { useRef, useState } from "react";
+import { Award, Languages, ChevronDown, ChevronUp } from "lucide-react";
 
 // Import certificate images
 import iitbCppCert from "@/assets/iitb-cpp-bootcamp-cert.png";
@@ -86,9 +86,15 @@ const SkillBar = ({ skill, index, isInView }: { skill: { name: string; level: nu
   </motion.div>
 );
 
+const INITIAL_VISIBLE = 6;
+
 const SkillsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleCertifications = showAll ? certifications : certifications.slice(0, INITIAL_VISIBLE);
+  const hasMore = certifications.length > INITIAL_VISIBLE;
 
   return (
     <section id="skills" className="py-24 relative">
@@ -142,29 +148,52 @@ const SkillsSection = () => {
               <Award className="w-6 h-6 text-primary" />
               <h3 className="text-2xl font-bold">Certifications</h3>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {certifications.map((cert, index) => (
-                <motion.div
-                  key={cert.name}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 0.7 + index * 0.05 }}
-                  whileHover={{ scale: 1.02, y: -4 }}
-                  className="group rounded-xl overflow-hidden border border-border bg-background/50 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all"
-                >
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={cert.image}
-                      alt={cert.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-3">
-                    <p className="text-sm font-medium text-foreground line-clamp-2">{cert.name}</p>
-                  </div>
-                </motion.div>
-              ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <AnimatePresence mode="popLayout">
+                {visibleCertifications.map((cert, index) => (
+                  <motion.div
+                    key={cert.name}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    whileHover={{ scale: 1.02, y: -4 }}
+                    layout
+                    className="group rounded-xl overflow-hidden border border-border bg-background/50 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all"
+                  >
+                    <div className="aspect-[4/3] overflow-hidden">
+                      <img
+                        src={cert.image}
+                        alt={cert.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="p-3">
+                      <p className="text-sm font-medium text-foreground line-clamp-2">{cert.name}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
+            
+            {hasMore && (
+              <motion.button
+                onClick={() => setShowAll(!showAll)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="mt-8 mx-auto flex items-center gap-2 px-6 py-3 rounded-full border border-primary/50 bg-primary/10 text-primary font-medium hover:bg-primary/20 transition-colors"
+              >
+                {showAll ? (
+                  <>
+                    Show Less <ChevronUp className="w-4 h-4" />
+                  </>
+                ) : (
+                  <>
+                    Show More ({certifications.length - INITIAL_VISIBLE} more) <ChevronDown className="w-4 h-4" />
+                  </>
+                )}
+              </motion.button>
+            )}
           </motion.div>
 
           {/* Languages */}
