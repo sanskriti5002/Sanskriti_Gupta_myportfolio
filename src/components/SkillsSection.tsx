@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { Award, Languages, X } from "lucide-react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { useRef } from "react";
+import { Award, Languages } from "lucide-react";
 
 // Import certificate images
 import iitbCppCert from "@/assets/iitb-cpp-bootcamp-cert.png";
@@ -50,17 +49,17 @@ const skillCategories = [
 
 const certifications = [
   { name: "C++ Bootcamp - IIT Bombay", image: iitbCppCert },
-  { name: "AWS Academy Graduate - Machine Learning Foundations", image: awsMlCert },
-  { name: "Artificial Intelligence Fundamentals - IBM SkillsBuild", image: ibmAiCert },
-  { name: "Python Course Completion - TuteDude", image: tutedudePythonCert },
-  { name: "Machine Learning using Python - Infosys Springboard", image: infosysMlPythonCert },
-  { name: "Java Database Connectivity (JDBC) - Infosys", image: infosysJdbcCert },
-  { name: "Database Management System (DBMS) & SQL - Udemy", image: udemyDbmsCert },
-  { name: "Introduction to Java - DataFlair", image: dataflairJavaCert },
+  { name: "AWS Academy - ML Foundations", image: awsMlCert },
+  { name: "AI Fundamentals - IBM", image: ibmAiCert },
+  { name: "Python Course - TuteDude", image: tutedudePythonCert },
+  { name: "ML using Python - Infosys", image: infosysMlPythonCert },
+  { name: "JDBC - Infosys", image: infosysJdbcCert },
+  { name: "DBMS & SQL - Udemy", image: udemyDbmsCert },
+  { name: "Intro to Java - DataFlair", image: dataflairJavaCert },
   { name: "Programming in C - Infosys", image: infosysCCert },
   { name: "Python Fundamentals - Infosys", image: infosysPythonFundCert },
-  { name: "Python Certification - DataFlair", image: dataflairPythonCert },
-  { name: "AI & Machine Learning Training - Infosys", image: infosysAimlCert },
+  { name: "Python - DataFlair", image: dataflairPythonCert },
+  { name: "AI & ML Training - Infosys", image: infosysAimlCert },
 ];
 
 const SkillBar = ({ skill, index, isInView }: { skill: { name: string; level: number }; index: number; isInView: boolean }) => (
@@ -90,7 +89,6 @@ const SkillBar = ({ skill, index, isInView }: { skill: { name: string; level: nu
 const SkillsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [selectedCert, setSelectedCert] = useState<{ name: string; image: string } | null>(null);
 
   return (
     <section id="skills" className="py-24 relative">
@@ -133,31 +131,38 @@ const SkillsSection = () => {
             ))}
           </div>
 
-          {/* Certifications */}
+          {/* Certifications Gallery */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.6 }}
             className="p-8 rounded-2xl border border-border bg-card/50 backdrop-blur-sm"
           >
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-8">
               <Award className="w-6 h-6 text-primary" />
               <h3 className="text-2xl font-bold">Certifications</h3>
-              <span className="text-muted-foreground text-sm">(Click to view)</span>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {certifications.map((cert, index) => (
-                <motion.button
+                <motion.div
                   key={cert.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.3, delay: 0.7 + index * 0.05 }}
-                  whileHover={{ scale: 1.05, backgroundColor: "hsl(var(--primary) / 0.2)" }}
-                  onClick={() => setSelectedCert(cert)}
-                  className="px-4 py-2 rounded-full border border-border bg-secondary/50 text-sm text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all cursor-pointer"
+                  transition={{ duration: 0.4, delay: 0.7 + index * 0.05 }}
+                  whileHover={{ scale: 1.02, y: -4 }}
+                  className="group rounded-xl overflow-hidden border border-border bg-background/50 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all"
                 >
-                  {cert.name}
-                </motion.button>
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={cert.image}
+                      alt={cert.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-3">
+                    <p className="text-sm font-medium text-foreground line-clamp-2">{cert.name}</p>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
@@ -178,30 +183,6 @@ const SkillsSection = () => {
           </motion.div>
         </div>
       </div>
-
-      {/* Certificate Modal */}
-      <Dialog open={!!selectedCert} onOpenChange={() => setSelectedCert(null)}>
-        <DialogContent className="max-w-4xl w-[95vw] p-0 overflow-hidden bg-card border-border">
-          <div className="relative">
-            <button
-              onClick={() => setSelectedCert(null)}
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-background/80 hover:bg-background transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            {selectedCert && (
-              <div className="p-4">
-                <h3 className="text-lg font-semibold mb-4 pr-10">{selectedCert.name}</h3>
-                <img
-                  src={selectedCert.image}
-                  alt={selectedCert.name}
-                  className="w-full h-auto rounded-lg"
-                />
-              </div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
     </section>
   );
 };
