@@ -1,37 +1,27 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Users, Camera, Code, Sparkles, Music } from "lucide-react";
+import { Users, Camera, Code, Sparkles } from "lucide-react";
 
 const activities = [
   {
-    title: "Google Developer Group (GDG)",
-    role: "Active Member",
-    description: "Participating in tech events, workshops, and collaborative coding sessions organized by Google Developer Group.",
-    icon: Code,
-  },
-  {
-    title: "ADC Club",
-    role: "Active Member",
-    description: "Engaged in Android development community activities, learning and contributing to mobile app development initiatives.",
-    icon: Sparkles,
-  },
-  {
-    title: "Campus Lens Club",
+    title: "Campus Lens Club, IILM University",
     role: "General Secretary",
-    description: "Leading the photography and media club at IILM University, organizing events and managing club activities.",
     icon: Camera,
   },
   {
-    title: "Dance & Cultural Activities",
-    role: "Performer",
-    description: "Active participation in cultural events, dance performances, and creative expressions at university functions.",
-    icon: Music,
+    title: "Google Developer Group (GDG) Club",
+    role: "Member",
+    icon: Code,
   },
   {
-    title: "Tech Event Volunteering",
+    title: "ADC Club, IILM University",
+    role: "Core Team Member",
+    icon: Sparkles,
+  },
+  {
+    title: "Hacko'clock, Ignite 2K24 & 2K25, Mosaic 2K23 & 2K25",
     role: "Volunteer",
-    description: "Volunteering at various tech events, hackathons, and workshops, helping with organization and coordination.",
     icon: Users,
   },
 ];
@@ -50,39 +40,29 @@ const ExtracurricularSection = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <span className="text-primary font-mono text-sm mb-4 block">04. Beyond Academics</span>
+            <span className="text-primary font-mono text-sm mb-4 block">05. Beyond Academics</span>
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Extracurricular <span className="text-gradient">Activities</span>
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Leadership roles, club memberships, and activities that shape my personality
-            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-4">
             {activities.map((activity, index) => (
               <motion.div
                 key={activity.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="p-6 rounded-2xl border border-border bg-card hover:border-primary/50 transition-all group"
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card/50 hover:border-primary/50 transition-all group"
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    <activity.icon className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-foreground group-hover:text-primary transition-colors">
-                      {activity.title}
-                    </h3>
-                    <span className="text-sm text-primary font-mono">{activity.role}</span>
-                  </div>
+                <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  <activity.icon className="w-5 h-5" />
                 </div>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {activity.description}
-                </p>
+                <div>
+                  <span className="text-primary font-mono text-sm">{activity.role}</span>
+                  <span className="text-muted-foreground mx-2">•</span>
+                  <span className="text-foreground">{activity.title}</span>
+                </div>
               </motion.div>
             ))}
           </div>
