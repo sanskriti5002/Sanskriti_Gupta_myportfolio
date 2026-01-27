@@ -52,15 +52,6 @@ const projects = [
     hasGallery: true,
     galleryType: "aicte",
   },
-  {
-    title: "Mood Tracker with Voice Recognition",
-    description: "Minor project implementing voice recognition technology to track and analyze user moods. Combines speech-to-text with sentiment analysis.",
-    tech: ["Python", "Speech Recognition", "NLP"],
-    github: "https://github.com/sanskriti5002",
-    featured: true,
-    hasGallery: false,
-    galleryType: null,
-  },
 ];
 
 const hackathons = [
