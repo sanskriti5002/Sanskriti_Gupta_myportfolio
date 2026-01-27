@@ -241,7 +241,7 @@ const ProjectsSection = () => {
             </motion.div>
 
             {/* Featured Projects */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            <div className="grid md:grid-cols-2 gap-8 mb-16">
               {projects.map((project, index) => (
                 <FeaturedProject 
                   key={project.title} 
