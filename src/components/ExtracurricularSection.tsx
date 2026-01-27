@@ -16,7 +16,7 @@ const activities = [
   },
   {
     title: "ADC Club, IILM University",
-    role: "Core Team Member",
+    role: "Vice President",
     icon: Sparkles,
   },
   {
