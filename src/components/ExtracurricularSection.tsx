@@ -7,8 +7,16 @@ import { Users, Camera, Code, Sparkles, Trophy } from "lucide-react";
 import posterPresentation1st from "@/assets/achievement-poster-presentation-1st.png";
 import mathQuiz1st from "@/assets/achievement-math-quiz-1st.png";
 import technodrama3rd from "@/assets/achievement-technodrama-3rd.png";
+import pixelQuest1st from "@/assets/cert-pixel-quest-1st.png";
+import technodramaTrophy from "@/assets/cert-technodrama-3rd-trophy.png";
+import hackxNiet from "@/assets/cert-hackx-niet.png";
+import hacknchill from "@/assets/cert-hacknchill.png";
+import codingBlocks from "@/assets/cert-coding-blocks.png";
+import ignite2025Coord from "@/assets/cert-ignite-2025-coord.png";
+import igniteVolunteer from "@/assets/cert-ignite-volunteer.png";
+import mosaic2025Volunteer from "@/assets/cert-mosaic-2025-volunteer.png";
 
-const achievements = [
+const achievementsAndParticipations = [
   {
     name: "Poster Presentation of Ideas - 1st Position",
     event: "Institution's Innovation Council (IIC), Oct 2023",
@@ -20,9 +28,49 @@ const achievements = [
     image: mathQuiz1st,
   },
   {
+    name: "Pixel Quest - 1st Position",
+    event: "IGNITE 2024",
+    image: pixelQuest1st,
+  },
+  {
     name: "Technodrama - 3rd Position",
     event: "IGNITE 2024",
     image: technodrama3rd,
+  },
+  {
+    name: "Technodrama - 3rd Position (Trophy)",
+    event: "IGNITE 2024",
+    image: technodramaTrophy,
+  },
+  {
+    name: "HACK-X NIET 2.0 - Participation",
+    event: "NIET Greater Noida, April 2024",
+    image: hackxNiet,
+  },
+  {
+    name: "HacknChill 2024 - Participation",
+    event: "GDSC ADGIPS, April 2024",
+    image: hacknchill,
+  },
+  {
+    name: "Coding Blocks Orientation",
+    event: "Coding Blocks, Dec 2024",
+    image: codingBlocks,
+  },
+  {
+    name: "IGNITE 2025 - Coordinator",
+    event: "IILM University, April 2025",
+    image: ignite2025Coord,
+  },
+  {
+    name: "IGNITE 2024 - Volunteer",
+    event: "IILM University, April 2024",
+    image: igniteVolunteer,
+  },
+  {
+    name: "Mosaic 2025 - Volunteer",
+    event: "IILM University, Feb 2025",
+    image: mosaic2025Volunteer,
   },
 ];
 
@@ -99,15 +147,15 @@ const ExtracurricularSection = () => {
           >
             <div className="flex items-center gap-3 mb-8">
               <Trophy className="w-6 h-6 text-primary" />
-              <h3 className="text-2xl font-bold">Achievements</h3>
+              <h3 className="text-2xl font-bold">Achievements & Participations</h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {achievements.map((achievement, index) => (
+              {achievementsAndParticipations.map((achievement, index) => (
                 <motion.div
-                  key={achievement.name}
+                  key={achievement.name + index}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                  transition={{ duration: 0.4, delay: 0.5 + index * 0.05 }}
                   whileHover={{ scale: 1.02, y: -4 }}
                   className="group rounded-xl overflow-hidden border border-border bg-background/50 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all"
                 >
