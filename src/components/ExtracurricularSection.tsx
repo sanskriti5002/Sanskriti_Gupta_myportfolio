@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { Users, Camera, Code, Sparkles, Trophy } from "lucide-react";
+import { useRef, useState } from "react";
+import { Users, Camera, Code, Sparkles, Trophy, ChevronDown, ChevronUp } from "lucide-react";
 
 // Import achievement certificates
 import posterPresentation1st from "@/assets/achievement-poster-presentation-1st.png";
@@ -97,9 +97,15 @@ const activities = [
   },
 ];
 
+const INITIAL_VISIBLE = 6;
+
 const ExtracurricularSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleAchievements = showAll ? achievementsAndParticipations : achievementsAndParticipations.slice(0, INITIAL_VISIBLE);
+  const hasMore = achievementsAndParticipations.length > INITIAL_VISIBLE;
 
   return (
     <section id="extracurricular" className="py-24 relative">
@@ -150,29 +156,52 @@ const ExtracurricularSection = () => {
               <h3 className="text-2xl font-bold">Achievements & Participations</h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {achievementsAndParticipations.map((achievement, index) => (
-                <motion.div
-                  key={achievement.name + index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 0.5 + index * 0.05 }}
-                  whileHover={{ scale: 1.02, y: -4 }}
-                  className="group rounded-xl overflow-hidden border border-border bg-background/50 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all"
-                >
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={achievement.image}
-                      alt={achievement.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-3">
-                    <p className="text-sm font-medium text-foreground line-clamp-2">{achievement.name}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{achievement.event}</p>
-                  </div>
-                </motion.div>
-              ))}
+              <AnimatePresence mode="popLayout">
+                {visibleAchievements.map((achievement, index) => (
+                  <motion.div
+                    key={achievement.name + index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    whileHover={{ scale: 1.02, y: -4 }}
+                    layout
+                    className="group rounded-xl overflow-hidden border border-border bg-background/50 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all"
+                  >
+                    <div className="aspect-[4/3] overflow-hidden">
+                      <img
+                        src={achievement.image}
+                        alt={achievement.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="p-3">
+                      <p className="text-sm font-medium text-foreground line-clamp-2">{achievement.name}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{achievement.event}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
+
+            {hasMore && (
+              <motion.button
+                onClick={() => setShowAll(!showAll)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="mt-8 mx-auto flex items-center gap-2 px-6 py-3 rounded-full border border-primary/50 bg-primary/10 text-primary font-medium hover:bg-primary/20 transition-colors"
+              >
+                {showAll ? (
+                  <>
+                    Show Less <ChevronUp className="w-4 h-4" />
+                  </>
+                ) : (
+                  <>
+                    Show More ({achievementsAndParticipations.length - INITIAL_VISIBLE} more) <ChevronDown className="w-4 h-4" />
+                  </>
+                )}
+              </motion.button>
+            )}
           </motion.div>
         </div>
       </div>
