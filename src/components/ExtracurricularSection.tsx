@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Users, Camera, Code, Sparkles, Trophy, ChevronDown, ChevronUp } from "lucide-react";
+ import { Trophy, ChevronDown, ChevronUp } from "lucide-react";
 
 // Import achievement certificates
 import posterPresentation1st from "@/assets/achievement-poster-presentation-1st.png";
@@ -74,29 +74,6 @@ const achievementsAndParticipations = [
   },
 ];
 
-const activities = [
-  {
-    title: "Campus Lens Club, IILM University",
-    role: "General Secretary",
-    icon: Camera,
-  },
-  {
-    title: "Google Developer Group (GDG) Club",
-    role: "Member",
-    icon: Code,
-  },
-  {
-    title: "ADC Club, IILM University",
-    role: "Vice President",
-    icon: Sparkles,
-  },
-  {
-    title: "Hacko'clock, Ignite 2K24 & 2K25, Mosaic 2K23 & 2K25",
-    role: "Volunteer",
-    icon: Users,
-  },
-];
-
 const INITIAL_VISIBLE = 6;
 
 const ExtracurricularSection = () => {
@@ -122,27 +99,6 @@ const ExtracurricularSection = () => {
               Extracurricular <span className="text-gradient">Activities</span>
             </h2>
           </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-4 mb-16">
-            {activities.map((activity, index) => (
-              <motion.div
-                key={activity.title}
-                initial={{ opacity: 0, x: -20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card/50 hover:border-primary/50 transition-all group"
-              >
-                <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  <activity.icon className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-primary font-mono text-sm">{activity.role}</span>
-                  <span className="text-muted-foreground mx-2">•</span>
-                  <span className="text-foreground">{activity.title}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
 
           {/* Achievements Section */}
           <motion.div
