@@ -19,13 +19,6 @@ const socials = [
   { icon: Code, href: "https://leetcode.com/u/sanskriti5008", label: "LeetCode" },
 ];
 
-const extracurricular = [
-  "General Secretary, Campus Lens Club, IILM University",
-  "Member, Google Developer Group (GDG) Club",
-  "Core Team Member, ADC Club, IILM University",
-  "Volunteer: Hacko'clock, Ignite 2K24 & 2K25, Mosaic 2K23 & 2K25",
-];
-
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -128,24 +121,6 @@ const ContactSection = () => {
                     </motion.a>
                   ))}
                 </div>
-              </motion.div>
-
-              {/* Extracurricular */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.4, delay: 0.6 }}
-                className="p-6 rounded-xl border border-border bg-card/50"
-              >
-                <h4 className="font-bold mb-4 text-primary">Extracurricular Activities</h4>
-                <ul className="space-y-2">
-                  {extracurricular.map((activity) => (
-                    <li key={activity} className="text-sm text-muted-foreground flex items-start gap-2">
-                      <span className="text-primary">▸</span>
-                      {activity}
-                    </li>
-                  ))}
-                </ul>
               </motion.div>
             </motion.div>
 
